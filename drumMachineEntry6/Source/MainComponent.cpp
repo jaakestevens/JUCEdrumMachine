@@ -21,6 +21,14 @@ MainComponent::MainComponent()
     
     formatManager.registerBasicFormats();
     
+    for(int i = 0; i < 7; i++)
+    {
+        for (int j = 0; j < 15; j++)
+        {
+            stepList[i][j] = 0;
+        }
+    }
+    
     
     
     
@@ -32,16 +40,8 @@ MainComponent::MainComponent()
     addAndMakeVisible(deck6);
     addAndMakeVisible(deck7);
     addAndMakeVisible(deck8);
-    
-    
-    //addAndMakeVisible(sequencer);
-    
-    //startTimer(200);
-    
-    for(int i = 0; i < 17; i++)
-    {
-        kickSelect.push_back(0);
-    }
+
+
     
     active = false;
     
@@ -337,12 +337,39 @@ void MainComponent::timerCallback()
 
 void MainComponent::checkSequence()
 {
-    std::cout<<stepList[BankSelected - 1][currentStep - 1]<<std::endl;
-    if(stepList[BankSelected - 1][currentStep - 1] == 1)
+    if(stepList[0][currentStep - 1] == 1)
     {
-        DBG("yay");
         player1.play();
     }
+    if(stepList[1][currentStep - 1] == 1)
+    {
+        player2.play();
+    }
+    if(stepList[2][currentStep - 1] == 1)
+    {
+        player3.play();
+    }
+    if(stepList[3][currentStep - 1] == 1)
+    {
+        player4.play();
+    }
+    if(stepList[4][currentStep - 1] == 1)
+    {
+        player5.play();
+    }
+    if(stepList[5][currentStep - 1] == 1)
+    {
+        player6.play();
+    }
+    if(stepList[6][currentStep - 1] == 1)
+    {
+        player7.play();
+    }
+    if(stepList[7][currentStep - 1] == 1)
+    {
+        player8.play();
+    }
+
 }
 
 void MainComponent::releaseResources()
@@ -435,10 +462,10 @@ void MainComponent::resized()
     bankButton1.setBounds(0, bankButtonStartingHeight, deckSpace, bankButtonHeight);
     bankButton2.setBounds(deckSpace * 1, bankButtonStartingHeight, deckSpace, bankButtonHeight);
     bankButton3.setBounds(deckSpace * 2, bankButtonStartingHeight, deckSpace, bankButtonHeight);
-    bankButton4.setBounds(deckSpace * 6, bankButtonStartingHeight, deckSpace, bankButtonHeight);
-    bankButton5.setBounds(deckSpace * 3, bankButtonStartingHeight, deckSpace, bankButtonHeight);
-    bankButton6.setBounds(deckSpace * 4, bankButtonStartingHeight, deckSpace, bankButtonHeight);
-    bankButton7.setBounds(deckSpace * 5, bankButtonStartingHeight, deckSpace, bankButtonHeight);
+    bankButton4.setBounds(deckSpace * 3, bankButtonStartingHeight, deckSpace, bankButtonHeight);
+    bankButton5.setBounds(deckSpace * 4, bankButtonStartingHeight, deckSpace, bankButtonHeight);
+    bankButton6.setBounds(deckSpace * 5, bankButtonStartingHeight, deckSpace, bankButtonHeight);
+    bankButton7.setBounds(deckSpace * 6, bankButtonStartingHeight, deckSpace, bankButtonHeight);
     bankButton8.setBounds(deckSpace * 7, bankButtonStartingHeight, deckSpace, bankButtonHeight);
     
 
@@ -531,42 +558,42 @@ void MainComponent::buttonClicked(Button *button)
     if(&bankButton1 == button)
     {
         clearBanks();
-        addBank(&bankButton1, 1);
+        changeBank(&bankButton1, 1);
     }
     if(&bankButton2 == button)
     {
         clearBanks();
-        addBank(&bankButton2, 2);
+        changeBank(&bankButton2, 2);
     }
     if(&bankButton3 == button)
     {
         clearBanks();
-        addBank(&bankButton3, 3);
+        changeBank(&bankButton3, 3);
     }
     if(&bankButton4 == button)
     {
         clearBanks();
-        addBank(&bankButton4, 4);
+        changeBank(&bankButton4, 4);
     }
     if(&bankButton5 == button)
     {
         clearBanks();
-        addBank(&bankButton5, 5);
+        changeBank(&bankButton5, 5);
     }
     if(&bankButton6 == button)
     {
         clearBanks();
-        addBank(&bankButton6, 6);
+        changeBank(&bankButton6, 6);
     }
     if(&bankButton7 == button)
     {
         clearBanks();
-        addBank(&bankButton7, 7);
+        changeBank(&bankButton7, 7);
     }
     if(&bankButton8 == button)
     {
         clearBanks();
-        addBank(&bankButton8, 8);
+        changeBank(&bankButton8, 8);
     }
     
 }
@@ -593,17 +620,10 @@ void MainComponent::clearLights()
     stepLight15.setEnabled(false);
     stepLight16.setEnabled(false);
 }
-void MainComponent::printVector()
-{
-    for(int i = 0; i < kickSelect.size(); i++)
-    {
-        //std::cout<<kickSelect.at(i)<<std::endl;
-    }
-}
 
 void MainComponent::clearBanks()
 {
-    BankSelected = 0;
+    bankSelected = 0;
     
     bankButton1.setColour(TextButton::buttonColourId, Colours::grey);
     bankButton2.setColour(TextButton::buttonColourId, Colours::grey);
@@ -614,15 +634,23 @@ void MainComponent::clearBanks()
     bankButton7.setColour(TextButton::buttonColourId, Colours::grey);
     bankButton8.setColour(TextButton::buttonColourId, Colours::grey);
 }
-void MainComponent::addBank(Button *button, int bank)
+void MainComponent::changeBank(Button *button, int bank)
 {
+    clearSteps();
+    bankSelected = bank;
+    
     button->setColour(TextButton::buttonColourId, Colours::blue);
-    BankSelected = bank;
+    for(int i = 0; i < 15; i++)
+    {
+        std::cout<<stepList[bankSelected - 1][i]<<std::endl;
+    }
+    
+    drawSteps(bankSelected);
 }
 
 void MainComponent::addStep(Button *button, int step)
 {
-    int currentBank = BankSelected - 1;
+    int currentBank = bankSelected - 1;
     int newStep = step - 1;
     int bankAndStep = stepList[currentBank][newStep];
     
@@ -630,14 +658,110 @@ void MainComponent::addStep(Button *button, int step)
     {
         stepList[currentBank][newStep] = 1;
         button->setColour(TextButton::buttonColourId, Colours::blue);
-        std::cout<<bankAndStep<<std::endl;
     }
     else if(bankAndStep == 1)
     {
         //add
-        button->setColour(TextButton::buttonColourId, Colours::grey);
+//        button->setColour(TextButton::buttonColourId, Colours::grey);
         stepList[currentBank][newStep] = 0;
-        std::cout<<bankAndStep<<std::endl;
+        button->setColour(TextButton::buttonColourId, Colours::grey);
+    }
+}
+
+void MainComponent::clearSteps()
+{
+    DBG("clearing steps");
+    step1.setColour(TextButton::buttonColourId, Colours::grey);
+    step2.setColour(TextButton::buttonColourId, Colours::grey);
+    step3.setColour(TextButton::buttonColourId, Colours::grey);
+    step4.setColour(TextButton::buttonColourId, Colours::grey);
+    
+    step5.setColour(TextButton::buttonColourId, Colours::grey);
+    step6.setColour(TextButton::buttonColourId, Colours::grey);
+    step7.setColour(TextButton::buttonColourId, Colours::grey);
+    step8.setColour(TextButton::buttonColourId, Colours::grey);
+    
+    step9.setColour(TextButton::buttonColourId, Colours::grey);
+    step10.setColour(TextButton::buttonColourId, Colours::grey);
+    step11.setColour(TextButton::buttonColourId, Colours::grey);
+    step12.setColour(TextButton::buttonColourId, Colours::grey);
+    
+    step13.setColour(TextButton::buttonColourId, Colours::grey);
+    step14.setColour(TextButton::buttonColourId, Colours::grey);
+    step15.setColour(TextButton::buttonColourId, Colours::grey);
+    step16.setColour(TextButton::buttonColourId, Colours::grey);
+}
+
+void MainComponent::drawSteps(int bank)
+{
+    bank = bank-1;
+    //draw the steps from the array
+    if(stepList[bank][0] == 1)
+    {
+        step1.setColour(TextButton::buttonColourId, Colours::blue);
+    }
+    if(stepList[bank][1] == 1)
+    {
+        step2.setColour(TextButton::buttonColourId, Colours::blue);
+    }
+    if(stepList[bank][2] == 1)
+    {
+        step3.setColour(TextButton::buttonColourId, Colours::blue);
+    }
+    if(stepList[bank][3] == 1)
+    {
+        step4.setColour(TextButton::buttonColourId, Colours::blue);
+    }
+    
+    if(stepList[bank][4] == 1)
+    {
+        step5.setColour(TextButton::buttonColourId, Colours::blue);
+    }
+    if(stepList[bank][5] == 1)
+    {
+        step6.setColour(TextButton::buttonColourId, Colours::blue);
+    }
+    if(stepList[bank][6] == 1)
+    {
+        step7.setColour(TextButton::buttonColourId, Colours::blue);
+    }
+    if(stepList[bank][7] == 1)
+    {
+        step8.setColour(TextButton::buttonColourId, Colours::blue);
+    }
+    
+    if(stepList[bank][8] == 1)
+    {
+        step9.setColour(TextButton::buttonColourId, Colours::blue);
+    }
+    if(stepList[bank][9] == 1)
+    {
+        step10.setColour(TextButton::buttonColourId, Colours::blue);
+    }
+    if(stepList[bank][10] == 1)
+    {
+        step11.setColour(TextButton::buttonColourId, Colours::blue);
+    }
+    if(stepList[bank][11] == 1)
+    {
+        step12.setColour(TextButton::buttonColourId, Colours::blue);
+    }
+    
+    if(stepList[bank][12] == 1)
+    {
+        step13.setColour(TextButton::buttonColourId, Colours::blue);
+    }
+    if(stepList[bank][13] == 1)
+    {
+        step14.setColour(TextButton::buttonColourId, Colours::blue);
+    }
+    if(stepList[bank][14] == 1)
+    {
+        step15.setColour(TextButton::buttonColourId, Colours::blue);
+    }
+    if(stepList[bank][15] == 1)
+    {
+        step16.setColour(TextButton::buttonColourId, Colours::blue);
     }
 }
 

@@ -17,7 +17,7 @@ public:
     //==============================================================================
     MainComponent();
     ~MainComponent() override;
-
+    
     //==============================================================================
     void prepareToPlay (int samplesPerBlockExpected, double sampleRate) override;
     void getNextAudioBlock (const juce::AudioSourceChannelInfo& bufferToFill) override;
@@ -36,21 +36,13 @@ public:
     void addStep(Button *button, int step);
     
     void clearBanks();
-    void addBank(Button *button, int bank);
+    void clearSteps();
+    void drawSteps(int bank);
+    void changeBank(Button *button, int bank);
     
-    int BankSelected;
+    int bankSelected;
     
-    std::vector<int>kickSelect;
-    std::vector<int>snareSelect;
-    std::vector<int>hat1Select;
-    std::vector<int>hat2Select;
-    
-    
-    std::vector<std::vector<int>> stepList
-    {
-        {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}, //banks
-        {0,0,0,0,0,0,0,0} //steps
-    };
+    int stepList[8][16];
 
 private:
     //==============================================================================
@@ -104,8 +96,6 @@ private:
     juce::TextButton stepLight15;
     juce::TextButton stepLight16;
     
-    
-    std::vector<juce::TextButton>stepLights;
 
     juce::TextButton step1;
     juce::TextButton step2;
@@ -137,7 +127,7 @@ private:
 
     MyLookAndFeel myLookAndFeel;
     
-    int tempo = 50;
+    int tempo = 100;
     
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainComponent)
