@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<JUCERPROJECT id="WPpiD5" name="DrumMachineSeq" projectType="guiapp" useAppConfig="0"
+              addUsingNamespaceToJuceHeader="0" displaySplashScreen="1" jucerFormatVersion="1"
+              defines="JUCE_MODAL_LOOPS_PERMITTED = 1">
+  <MAINGROUP id="xEUP5e" name="DrumMachineSeq">
+    <GROUP id="{57E83E6A-7AC3-4DBB-A8C7-82688D2333F9}" name="Source">
+      <FILE id="xg9yiw" name="DeckGUI2.cpp" compile="1" resource="0" file="Source/DeckGUI2.cpp"/>
+      <FILE id="kExTf8" name="DeckGUI2.h" compile="0" resource="0" file="Source/DeckGUI2.h"/>
+      <FILE id="d32hch" name="DjAudioPlayer.cpp" compile="1" resource="0"
+            file="Source/DjAudioPlayer.cpp"/>
+      <FILE id="x7ecwh" name="DjAudioPlayer.h" compile="0" resource="0" file="Source/DjAudioPlayer.h"/>
+      <FILE id="fL1j2T" name="Interval.h" compile="0" resource="0" file="Source/Interval.h"/>
+      <FILE id="fIa6cF" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
+      <FILE id="PXbwoh" name="MainComponent.cpp" compile="1" resource="0"
+            file="Source/MainComponent.cpp"/>
+      <FILE id="MZdyLx" name="MainComponent.h" compile="0" resource="0" file="Source/MainComponent.h"/>
+      <FILE id="mZZgkA" name="MyLook&amp;Feel.h" compile="0" resource="0"
+            file="Source/MyLook&amp;Feel.h"/>
+      <FILE id="toAK1X" name="SequencerGUI.cpp" compile="1" resource="0"
+            file="Source/SequencerGUI.cpp"/>
+      <FILE id="ETGvPU" name="SequencerGUI.h" compile="0" resource="0" file="Source/SequencerGUI.h"/>
+      <FILE id="z7TLMl" name="Sine.h" compile="0" resource="0" file="Source/Sine.h"/>
+      <FILE id="vhmJUI" name="WaveformDisplay.cpp" compile="1" resource="0"
+            file="Source/WaveformDisplay.cpp"/>
+      <FILE id="x9lEsZ" name="WaveformDisplay.h" compile="0" resource="0"
+            file="Source/WaveformDisplay.h"/>
+    </GROUP>
+  </MAINGROUP>
+  <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1"/>
+  <EXPORTFORMATS>
+    <XCODE_MAC targetFolder="Builds/MacOSX">
+      <CONFIGURATIONS>
+        <CONFIGURATION isDebug="1" name="Debug" targetName="DrumMachineSeq"/>
+        <CONFIGURATION isDebug="0" name="Release" targetName="DrumMachineSeq"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_audio_basics" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_utils" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_core" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_data_structures" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_events" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_graphics" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="../../JUCE/modules"/>
+      </MODULEPATHS>
+    </XCODE_MAC>
+  </EXPORTFORMATS>
+  <MODULES>
+    <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_devices" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_formats" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_processors" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_utils" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_core" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_events" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+  </MODULES>
+</JUCERPROJECT>
